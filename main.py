@@ -1,7 +1,11 @@
 import asyncio  # Для работы с асинхронными функциями
-from aiogram import Bot, Dispatcher  # Bot отвечает за взаимодействие с Telegram bot API,
+from aiogram import Bot, Dispatcher       # Bot отвечает за взаимодействие с Telegram bot API
+                                          # Dispatcher управляет обработкой входящих сообщений и команд.
 
-# Dispatcher управляет обработкой входящих сообщений и команд.
+from aiogram.filters import CommandStart  # Отслеживаем команду start в Telegram-боте
+                                          # Для обработки команд импортируем нужные фильтры и типы сообщений:
+
+from aiogram.types import Message         # Импортируем нужные типы сообщений
 
 bot = Bot(token='')
 dp = Dispatcher()
@@ -9,7 +13,6 @@ dp = Dispatcher()
 
 async def main():  # Создадим асинхронную функцию main, которая будет запускать наш бот
     await dp.start_polling()
-
 
 # async def main(). Это асинхронная функция main, которая будет запускаться и работать одновременно
 # со всем остальным. await здесь — это действие, которое происходит с Telegram-ботом, и в нашем случае будет
