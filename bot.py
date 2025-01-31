@@ -2,7 +2,7 @@ import asyncio
 import aiohttp
 from datetime import datetime
 from aiogram import Bot, Dispatcher
-from aiogram.filters import Command, CommandStart
+from aiogram.filters import Command, CommandStart, F
 from aiogram.types import Message
 from config import TOKEN  # из файла config импортируем токен в основной файл
 

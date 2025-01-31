@@ -11,10 +11,10 @@ from config import TOKEN  # из файла config импортируем ток
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-# Создадим декоратор для обработки команд
+# Создадим декоратор для обработки команды /help (пишем без слеш / )
 
 @dp.message(Command('help')) # (Handler) — это функция, выполняющая определенное действие в ответ на событие.
-async def help(message: Message):
+async def help(message: Message): # Прописываем асинхронную функцию help, которая отправляет список команд бота
     await message.answer('Этот бот умеет выполнять команды:\n /start\n /help')  # \n  -для переноса на следующую строку
 
 # Создадим декоратор для обработки команды /start
