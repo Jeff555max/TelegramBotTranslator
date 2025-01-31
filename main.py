@@ -2,7 +2,7 @@ import asyncio  # Для работы с асинхронными функция
 from aiogram import Bot, Dispatcher       # Bot отвечает за взаимодействие с Telegram bot API
                                           # Dispatcher управляет обработкой входящих сообщений и команд.
 
-from aiogram.filters import CommandStart  # Отслеживаем команду start в Telegram-боте
+from aiogram.filters import Command, CommandStart  # Отслеживаем команду start и другие команды в Telegram-боте
                                           # Для обработки команд импортируем нужные фильтры и типы сообщений:
 
 from aiogram.types import Message         # Импортируем нужные типы сообщений
