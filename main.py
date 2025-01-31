@@ -24,7 +24,7 @@ async def react_photo(message: Message):
     await message.answer(rand_answ)
 
 # Прописываем хендлер для обработки текстового вопроса и вариант ответа
-@dp.message(F.text == "что такое ИИ?")
+@dp.message(F.text.lower() == "что такое ии?")
 async def aitext(message: Message):
     await message.answer(
         'Искусственный интеллект — это свойство искусственных интеллектуальных систем выполнять творческие функции, которые традиционно считаются прерогативой человека; наука и технология создания интеллектуальных машин, особенно интеллектуальных компьютерных программ')
@@ -33,8 +33,10 @@ async def aitext(message: Message):
 # отправлять по ссылкам — это самый простой вариант. Мы можем взять в Google несколько ссылок на фотографии и
 # отправлять их, опять-таки, рандомно. Для этого копируем URL выбранных изображений и вставляем их в код.
 # В конце ссылки обязательно должно быть указано расширение изображения.
+
+@dp.message(Command("photo"))  # Добавляем обработчик команды /photo
 async def photo(message: Message):
-    photo_list = ["https://img.freepik.com/free-photo/robot-doing-peace-sign_1048-3527.jpg?ga=GA1.1.250669299.1729168485&semt=ais_hybrid"]
+    photo_list = ["https://content.onliner.by/forum/5c4/a3b/397580/800x800/091bac2b9ea25d7551a41e0bde4726ec.jpg",]
     rand_photo = random.choice(photo_list)
     await message.answer_photo(photo=rand_photo, caption="Это супер крутая картинка")
 
@@ -42,7 +44,7 @@ async def photo(message: Message):
 
 @dp.message(Command('help'))  # (Handler) — это функция, выполняющая определенное действие в ответ на событие.
 async def help(message: Message):  # Прописываем асинхронную функцию help, которая отправляет список команд бота
-    await message.answer('Этот бот умеет выполнять команды:\n /start\n /help')  # \n  -для переноса на следующую строку
+    await message.answer('Этот бот умеет выполнять команды:\n /start\n /help\n /photo')  # \n  -для переноса на следующую строку
 
 
 # Создадим декоратор для обработки команды /start
