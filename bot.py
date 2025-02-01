@@ -24,7 +24,7 @@ async def help(message: Message):
         'Этот бот умеет выполнять команды:\n /start\n /help\n /weather')
 
 async def get_weather(city):
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric&lang=ru"
     async with aiohttp.ClientSession() as session:
         try:
             async with session.get(url) as response:
