@@ -14,6 +14,15 @@ CHAT_ID = "YOUR_CHAT_ID"
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
+@dp.message(CommandStart())
+async def start(message: Message):
+    await message.answer("Это бот показывает погоду в Тюмени!")
+
+@dp.message(Command('help'))
+async def help(message: Message):
+    await message.answer(
+        'Этот бот умеет выполнять команды:\n /start\n /help\n /weather')
+
 async def get_weather(city):
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
     async with aiohttp.ClientSession() as session:
@@ -23,11 +32,11 @@ async def get_weather(city):
                     data = await response.json()
                     temp = data['main']['temp']
                     weather_desc = data['weather'][0]['description']
-                    return f"Погода в  {city}: {temp}°C, {weather_desc}"
+                    return f"Погода в {city}: {temp}°C, {weather_desc}"
                 else:
-                    return f"Error {response.status}: City not found."
+                    return f"Ошибка {response.status}: Город не найден."
         except aiohttp.ClientError as e:
-            return f"Weather API error: {e}"
+            return f"Ошибка API погоды: {e}"
 
 async def send_weather():
     while True:
@@ -35,8 +44,7 @@ async def send_weather():
         if now in INTERVALS:
             weather_report = await get_weather(DEFAULT_CITY)
             await bot.send_message(chat_id=CHAT_ID, text=weather_report)
-            await asyncio.sleep(60)  # Ожидание, чтобы не спамить
-        await asyncio.sleep(30)  # Проверяем каждую 30 секунд
+        await asyncio.sleep(60)  # Проверяем каждую минуту
 
 @dp.message(Command("weather"))
 async def weather_command(message: Message):
@@ -46,14 +54,6 @@ async def weather_command(message: Message):
     else:
         weather_report = await get_weather(DEFAULT_CITY)
     await message.answer(weather_report)
-
-@dp.message(Command("help"))
-async def help_command(message: Message):
-    await message.answer('This bot can provide weather updates: \n /start \n /help \n /weather [city]')
-
-@dp.message(CommandStart())
-async def start_command(message: Message):
-    await message.answer('Hello! Use /weather [city] to get the current forecast.')
 
 async def main():
     asyncio.create_task(send_weather())
