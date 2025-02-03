@@ -35,9 +35,9 @@ async def voice(message: Message):
     await message.answer_voice(voice) # можно использовать message.answer — в этом случае не нужно будет указывать chat.id.
     # или bot.send_voice(message.chat.id, voice)
 
-@dp.message(Command('doc')) # Отправка документов
-async def doc(message: Message):
-    doc = FSInputFile("TG02.pdf")
+@dp.message(Command('doc')) # Отправка документов-создали команду doc
+async def doc(message: Message): # создали функцию doc
+    doc = FSInputFile("TG02.pdf") # создали переменную doc и указали название PDF-файла, который будем отправлять
     await bot.send_document(message.chat.id, doc)
 
 @dp.message(Command('audio')) # на команду пользователя /audio будет отправляться аудио
