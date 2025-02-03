@@ -29,6 +29,11 @@ async def video(message: Message):  # Мы создаем переменную v
     # message.answer_video или bot.send_video. Также указываем ID чата, откуда пришла команда, и переменную video.
     await bot.send_video(message.chat.id, video)
 
+@dp.message(Command('voice'))# важно знать о голосовых сообщениях: формат MP3 здесь не поддерживается, для этого нужен формат OGG
+async def voice(message: Message):
+    voice = FSInputFile("sample.ogg")
+    await message.answer_voice(voice) # можно использовать message.answer — в этом случае не нужно будет указывать chat.id.
+    # или bot.send_voice(message.chat.id, voice)
 
 @dp.message(Command('audio')) # на команду пользователя /audio будет отправляться аудио
 async def audio(message: Message):
