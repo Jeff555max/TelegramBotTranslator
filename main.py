@@ -6,7 +6,7 @@ from aiogram import Bot, Dispatcher, F  # Bot отвечает за взаимо
 from aiogram.filters import Command, CommandStart  # Отслеживаем команду start и другие команды в Telegram-боте
 # Для обработки команд импортируем нужные фильтры и типы сообщений:
 
-from aiogram.types import Message  # Импортируем нужные типы сообщений
+from aiogram.types import Message, FSInputFile # Импортируем нужные типы сообщений, для работы с файлами нужно импортировать класс FSInputFile
 from config import TOKEN  # из файла config импортируем токен в основной файл
 import random
 
@@ -14,6 +14,25 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 # (Handler) — это функция, выполняющая определенное действие в ответ на событие.
+
+@dp.message(Command('video'))
+async def video(message: Message):  # Мы создаем переменную video, в которой хранится объект класса FSInputFile.
+    await bot.send_chat_action(message.chat.id, 'upload_video') # Уведомление о загрузке. Это уведомление покажет,
+    # что бот загружает видео. Когда загрузка завершится, уведомление исчезнет
+    video = FSInputFile('1ddb0b17.mp4')
+# В скобках указываем путь к файлу. Если файл находится в одной папке с main.py, достаточно указать только его название.
+# Если он находится в другой папке, перед названием нужно прописать полностью путь к файлу.
+
+
+    await bot.send_video(message.chat.id, video)  # Теперь используем одну из двух команд для отправки видео:
+# message.answer_video или bot.send_video. Также указываем ID чата, откуда пришла команда, и переменную video.
+
+    await bot.send_video(message.chat.id, video)
+
+
+@dp.message(Command('audio'))
+async def audio(message: Message):
+    await message.answer("Этот бот умеет выполнять команды:\\n/start\\n/help\\n/minitraining")
 
 
 # Прописываем хендлер для обработки фото и варианты ответов:
