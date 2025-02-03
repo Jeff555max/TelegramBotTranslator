@@ -15,7 +15,7 @@ dp = Dispatcher()
 
 # (Handler) — это функция, выполняющая определенное действие в ответ на событие.
 
-@dp.message(Command('video'))
+@dp.message(Command('video')) # на команду пользователя /video будет отправляться видео и будет сообщение, что видео отправляется
 async def video(message: Message):  # Мы создаем переменную video, в которой хранится объект класса FSInputFile.
     await bot.send_chat_action(message.chat.id, 'upload_video') # Уведомление о загрузке. Это уведомление покажет,
     # что бот загружает видео. Когда загрузка завершится, уведомление исчезнет
@@ -64,7 +64,7 @@ async def aitext(message: Message):
 
 @dp.message(Command("photo",prefix='&'))  # Добавляем обработчик команды /photo,
 # Когда мы отправляем любую команду боту в Telegram, по умолчанию используется слэш перед командой. Но мы можем задать и свои префиксы
-# с префиксом, например & пользователю надо будет писать & photo
+# с префиксом, например & пользователю надо будет писать &photo
 async def photo(message: Message):
     photo_list = ["https://content.onliner.by/forum/5c4/a3b/397580/800x800/091bac2b9ea25d7551a41e0bde4726ec.jpg",]
     rand_photo = random.choice(photo_list)
