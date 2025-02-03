@@ -52,9 +52,11 @@ async def training(message: Message):
     # так как по умолчанию это будет английский язык
     tts.save("training.mp3")  # Чтобы сохранить то, что мы создадим, нужно прописать специальную команду save,
     # указав при этом название файла, в который будут сохраняться эти данные
-    audio = FSInputFile('training.mp3')
-    await bot.send_audio(message.chat.id, audio)
-    os.remove("training.mp3")
+    audio = FSInputFile('training.mp3') # Далее эти данные нужно отправить. Для этого создаем переменную audio,
+    # в круглых скобках прописываем название файла и отправляем
+    await bot.send_audio(message.chat.id, audio) # — для этого мы используем await, а в круглых скобках указываем ****chat.id и
+    # передаем аудио для отправки.
+    os.remove("training.mp3") # Также прописываем remove, так как после отправки файл можно удалить
 
 
 # Прописываем хендлер для обработки фото и варианты ответов:
