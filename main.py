@@ -10,6 +10,9 @@ from aiogram.types import Message, FSInputFile # Импортируем нужн
 from config import TOKEN  # из файла config импортируем токен в основной файл
 import random
 
+from gtts import gTTS  # сделать озвучку Google TTS
+import os
+
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
@@ -22,17 +25,25 @@ async def video(message: Message):  # Мы создаем переменную v
     video = FSInputFile('1ddb0b17.mp4')
 # В скобках указываем путь к файлу. Если файл находится в одной папке с main.py, достаточно указать только его название.
 # Если он находится в другой папке, перед названием нужно прописать полностью путь к файлу.
-
-
     await bot.send_video(message.chat.id, video)  # Теперь используем одну из двух команд для отправки видео:
-# message.answer_video или bot.send_video. Также указываем ID чата, откуда пришла команда, и переменную video.
-
+    # message.answer_video или bot.send_video. Также указываем ID чата, откуда пришла команда, и переменную video.
     await bot.send_video(message.chat.id, video)
 
 
-@dp.message(Command('audio'))
+@dp.message(Command('audio')) # на команду пользователя /audio будет отправляться аудио
 async def audio(message: Message):
-    await message.answer("Этот бот умеет выполнять команды:\\n/start\\n/help\\n/minitraining")
+    audio = FSInputFile('1.MP3')
+    await bot.send_audio(message.chat.id, audio) # Указываем ID чата, откуда пришла команда в тот чат отправится ответ -переменная audio
+
+@dp.message(Command('training'))
+async def training(message: Message):
+   training_list = [
+       "Тренировка 1:\\n1. Скручивания: 3 подхода по 15 повторений\\n2. Велосипед: 3 подхода по 20 повторений (каждая сторона)\\n3. Планка: 3 подхода по 30 секунд",
+       "Тренировка 2:\\n1. Подъемы ног: 3 подхода по 15 повторений\\n2. Русский твист: 3 подхода по 20 повторений (каждая сторона)\\n3. Планка с поднятой ногой: 3 подхода по 20 секунд (каждая нога)",
+       "Тренировка 3:\\n1. Скручивания с поднятыми ногами: 3 подхода по 15 повторений\\n2. Горизонтальные ножницы: 3 подхода по 20 повторений\\n3. Боковая планка: 3 подхода по 20 секунд (каждая сторона)"
+   ]
+   rand_tr = random.choice(training_list)
+   await message.answer(f"Это ваша мини-тренировка на сегодня {rand_tr}")
 
 
 # Прописываем хендлер для обработки фото и варианты ответов:
