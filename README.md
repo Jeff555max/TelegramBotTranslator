@@ -1,4 +1,4 @@
-# Bot
+#TG_02 Bot
  
 main.py --на уроке TG_01
 
