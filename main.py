@@ -34,7 +34,9 @@ async def aitext(message: Message):
 # отправлять их, опять-таки, рандомно. Для этого копируем URL выбранных изображений и вставляем их в код.
 # В конце ссылки обязательно должно быть указано расширение изображения.
 
-@dp.message(Command("photo"))  # Добавляем обработчик команды /photo
+@dp.message(Command("photo",prefix='&'))  # Добавляем обработчик команды /photo,
+# Когда мы отправляем любую команду боту в Telegram, по умолчанию используется слэш перед командой. Но мы можем задать и свои префиксы
+# с префиксом, например & пользователю надо будет писать & photo
 async def photo(message: Message):
     photo_list = ["https://content.onliner.by/forum/5c4/a3b/397580/800x800/091bac2b9ea25d7551a41e0bde4726ec.jpg",]
     rand_photo = random.choice(photo_list)
