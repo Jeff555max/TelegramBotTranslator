@@ -3,6 +3,7 @@
 main.py --на уроке TG_01 и TG_02
 
 bot_tg_01.py -ДЗ по уроку TG_01
+
 bot_tg_02.py -ДЗ по уроку TG_02
 
 Погода по API с сайта https://home.openweathermap.org/
