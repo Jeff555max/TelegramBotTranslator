@@ -1,6 +1,10 @@
 ### TelegramBotTranslator
 Это бот для Telegram, который переводит текст на английский язык и озвучивает его. Для работы бота используются следующие библиотеки:
 
+Реализация
+
+https://t.me/R_A_Translator_bot
+
 aiogram — для работы с Telegram Bot API.
 
 googletrans — для перевода текста.
